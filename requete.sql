@@ -1,0 +1,1 @@
+CREATE TABLE `ems`.`employees` ( `id` INT NOT NULL AUTO_INCREMENT , `firstname` VARCHAR(100) NOT NULL , `lastname` VARCHAR(100) NOT NULL , `dateofbirth` DATE NOT NULL , `email` VARCHAR(100) NOT NULL , `jobtitle` VARCHAR(150) NOT NULL , `salary` FLOAT NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM;

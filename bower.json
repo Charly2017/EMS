@@ -1,0 +1,20 @@
+{
+  "name": "EMS",
+  "authors": [
+    "Charly"
+  ],
+  "description": "All is Well Employee Management System",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

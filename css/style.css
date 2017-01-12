@@ -1,0 +1,59 @@
+body {
+    margin-top: 10px;
+    background-color: #eee;
+}
+
+.emsTitle {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.container {
+    background-color: #fff;
+    border: solid 1px #ccc;
+    min-height: 40em;
+    border-radius: 4px;
+}
+
+/*#list_table {
+    margin-top: 15px !important;
+}*/
+
+thead {
+    background-color: #eee !important;
+}
+
+.tr_content > th {
+    font-weight: normal;
+}
+
+.action  {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.ageEmployee {
+    margin-left: 30px !important; 
+}
+
+.alert-info {
+    margin-top: 10px;
+}
+
+fieldset.searchFieldset {
+    border: 1px groove !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.searchFieldset {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
+.labelSearch {
+    margin-top: 7px !important;
+}
