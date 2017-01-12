@@ -1,6 +1,7 @@
 <?php
     header('Content-Type: application/json');
 
+    $id = $_POST["id"];
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $dateofbirth = $_POST["dateofbirth"];
@@ -10,10 +11,11 @@
 
     $conn= mysqli_connect("localhost","root","","ems");
 
-    $sql = "INSERT INTO employees (id, firstname, lastname, dateofbirth, email, jobtitle, salary) VALUES (NULL, '".$firstname."', '".$lastname."','".$dateofbirth."','".$email."','".$jobtitle."',$salary)";
+    $sql = "INSERT INTO employees (id, firstname, lastname, dateofbirth, email, jobtitle, salary) VALUES ('".$id."', '".$firstname."', '".$lastname."','".$dateofbirth."','".$email."','".$jobtitle."',$salary)";
 
     if(mysqli_query($conn, $sql)){
         $data = array(
+            "id"=>$id,
             "firstname"=>$firstname,
             "lastname"=>$lastname,
             "dateofbirth"=>$dateofbirth,

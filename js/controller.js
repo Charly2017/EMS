@@ -1,5 +1,6 @@
+var host = "http://localhost";
+
 function removeEmployee(employee_id){
-                console.log(employee_id);
                 if(confirm("Are you sure want to remove this employee : "+employee_id)){
                     for(var i=0;i<listEmployee.length;i++){
                         if(listEmployee[i]["id"] == employee_id){
@@ -35,7 +36,7 @@ function removeEmployee(employee_id){
 function editEmployee(employee_id){
     $.ajax({
         async: false,
-        url: "controllers/edit_ctrl.php?employee_id="+employee_id+"&edit=0",
+        url: "controllers/edit_ctrl.php?id="+employee_id+"&edit=0",
         type: "GET",
         contentType: "application/json",
         success: function(res){
@@ -59,13 +60,20 @@ function editEmployee(employee_id){
 function viewProfile(employee_id){
     $.ajax({
         async: false,
-        url: "controllers/edit_ctrl.php?employee_id="+employee_id+"&edit=2",
+        url: "controllers/edit_ctrl.php?id="+employee_id+"&edit=2",
         type: "GET",
         contentType: "application/json",
         success: function(res){
             console.log(res) 
-            $data = res["response"]["firstname"]+" "+res["response"]["lastname"]+" a "+res["age"]+" ans";
-            $(".ageEmployee").html($data);
+            $("#idView").val(res["response"]["id"]);           
+            $("#firstnameView").val(res["response"]["firstname"]);
+            $("#lastnameView").val(res["response"]["lastname"]);
+            $("#ageView").val(res["age"]);
+            $("#emailView").val(res["response"]["email"]);
+            $("#jobtitleView").val(res["response"]["jobtitle"]);
+            $("#salaryView").val(res["response"]["salary"]);
+            // $data = res["response"]["firstname"]+" "+res["response"]["lastname"]+" a "+res["age"]+" ans";
+            // $(".ageEmployee").html($data);
             $("#viewModal").modal('show');
             
         },
@@ -77,15 +85,16 @@ function viewProfile(employee_id){
 
 function formatTable(res){
     var tab_begin = "<table class='table'>"
-    var head = "<thead class='thead'><tr><th>Firstname</th><th> Lastname</th><th> Date of birth</th><th> Email</th><th> Job title</th><th> Salary</th><th> Action</th></tr></thead><tbody>"
+    var head = "<thead class='thead'><tr><th>Id</th><th>Firstname</th><th> Lastname</th><th> Date of birth</th><th> Email</th><th> Job title</th><th> Salary</th><th> Action</th></tr></thead><tbody>"
     var content = ""
     for(var i=0; i<res.length; i++){
-        content += "<tr class='tr_content'><th>"+res[i]["firstname"]+"</th><th>"+res[i]["lastname"]+"</th><th>"+res[i]["dateofbirth"]+"</th><th>"+res[i]["email"]+"</th><th>"+res[i]["jobtitle"]+"</th><th>"+res[i]["salary"]+"</th><th> <i class=\"fa fa-edit fa-lg action\" onclick=\"javascript:editEmployee('"+res[i]["id"]+"')\"></i><i class=\"fa fa-trash fa-lg action\" onclick=\"javascript:removeEmployee('"+res[i]["id"]+"')\"></i><i class=\"fa fa-eye fa-lg action\" title='View profile' onclick=\"javascript:viewProfile('"+res[i]["id"]+"')\"></i></th></tr>";
+        content += "<tr class='tr_content'><th>"+res[i]["id"]+"</th><th>"+res[i]["firstname"]+"</th><th>"+res[i]["lastname"]+"</th><th>"+res[i]["dateofbirth"]+"</th><th>"+res[i]["email"]+"</th><th>"+res[i]["jobtitle"]+"</th><th>"+res[i]["salary"]+"</th><th> <i class=\"fa fa-edit fa-lg action\" onclick=\"javascript:editEmployee('"+res[i]["id"]+"')\"></i><i class=\"fa fa-trash fa-lg action\" onclick=\"javascript:removeEmployee('"+res[i]["id"]+"')\"></i><i class=\"fa fa-eye fa-lg action\" title='View profile' onclick=\"javascript:viewProfile('"+res[i]["id"]+"')\"></i></th></tr>";
     }
     var tab_end = "</tbody></table>"
     var data = tab_begin+head+content+tab_end;
     $("#list_table").append(data);
 }
+
 var listEmployee;
 $(document).ready(function(){ 
            /* List all employee */
@@ -107,6 +116,7 @@ $(document).ready(function(){
             /* Add new employee */
             $("#addForm").submit(function(event){
                 event.preventDefault();
+                var id = $("#id").val();                
                 var firstname = $("#firstname").val();
                 var lastname = $("#lastname").val();
                 var dateofbirth = $("#dateofbirth").val();
@@ -114,6 +124,7 @@ $(document).ready(function(){
                 var salary = $("#salary").val();
                 var email = $("#email").val();
                 var data = {
+                    id: id,
                     firstname: firstname,
                     lastname: lastname,
                     dateofbirth: dateofbirth,
@@ -143,14 +154,15 @@ $(document).ready(function(){
             /* Edit employee */
             $("#editForm").submit(function(event){
                 event.preventDefault();                
-                var employee_id = $("#idEdit").val();
+                var id = $("#idEdit").val();
                 var firstname = $("#firstnameEdit").val();
                 var lastname = $("#lastnameEdit").val();
                 var dateofbirth = $("#dateofbirthEdit").val();
                 var email = $("#emailEdit").val();
                 var jobtitle = $("#jobtitleEdit").val();
                 var salary = $("#salaryEdit").val();
-                var data = {                    
+                var data = { 
+                    id: id,                   
                     firstname: firstname,
                     lastname: lastname,
                     dateofbirth: dateofbirth,
@@ -161,7 +173,7 @@ $(document).ready(function(){
 
                 $.ajax({
                     async: false,
-                    url: "controllers/edit_ctrl.php?employee_id="+employee_id+"&edit=1",
+                    url: "controllers/edit_ctrl.php?edit=1",
                     type: "POST",
                     data: data,
                     success: function(res){
@@ -199,7 +211,7 @@ $(document).ready(function(){
                         console.log(res);
                         var link = document.createElement("a");
                         link.download = "salary_report.csv";
-                        link.href = "http://localhost/EMS/controllers/salary_report.csv";
+                        link.href = host+"/EMS/controllers/salary_report.csv";
                         link.click();
                         $("#salaryModal").modal("hide");                   
                     },
@@ -217,12 +229,20 @@ $(document).ready(function(){
             /* Search employee */
             $("#searchForm").submit(function(event){
                 event.preventDefault(); 
-                var data = $("#keywordSearch").val();               
+                var id = $("#idSearch").val();
+                var name = $("#nameSearch").val();
+                if($.isNumeric(id) && name === ""){
+                    alert("Please enter the name");
+                    return false;
+                } else if(!$.isNumeric(id) && name !== ""){
+                    alert("Please enter a number for id ");
+                    return false;
+                }                                            
                 $.ajax({
                     async: false,
-                    url: "controllers/search_ctrl.php?data="+data,
+                    url: "controllers/search_ctrl.php?id="+id+"&name="+name,
                     type: "GET",      
-                    success: function(res){
+                    success: function(res){                        
                         $("#list_table").empty();
                         formatTable(res);
                     },

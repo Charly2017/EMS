@@ -1,10 +1,15 @@
 <?php
     header('Content-Type: application/json');
-    $data = $_GET["data"];
-
+    $name = $_GET["name"];
+    $id = $_GET["id"];
+    
     $conn= mysqli_connect("localhost","root","","ems");
-
-    $sql = "SELECT * FROM employees WHERE firstname like '%".$data."%' OR lastname like '%".$data."%' OR email like '%".$data."%' OR dateofbirth like '%".$data."%' OR jobtitle like '%".$data."%' OR salary like '%".$data."%'";
+    if($name === "" && $id === ""){
+        $sql = "SELECT * FROM employees";
+    } else{
+        $sql = "SELECT * FROM employees WHERE firstname like '%".$name."%' OR lastname like '%".$name."%' AND id = ".$id;
+    }
+    
     $result = mysqli_query($conn, $sql);
     if($result){
         $data = Array();
