@@ -41,9 +41,16 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `firstname`, `lastname`, `dateofbirth`, `email`, `jobtitle`, `salary`) VALUES
-(1, 'rakoto', 'soa', '2016-11-20', 'soa@gmail.com', 'dev', 100),
-(27, 'Charly', 'test', '2016-11-20', 'sdffdf@gmail.com', 'dev', 700),
-(28, 'juliano', 'test', '2016-11-20', 'sdffdf@gmail.com', 'dev', 700);
+(1, 'Barbara', 'Sanchez', '1997-11-20', 'bsanchez0@live.com', 'VP Product Management', 1500),
+(2, 'Timothy', 'Woods', '1967-11-20', 'twoods1@behance.net', 'Marketing Assistant', 1200),
+(3, 'Nancy', 'Kelly', '1985-11-20', 'nkelly3@vistaprint.com', 'Human Resources Manager', 1700),
+(4, 'Donald', 'Warren', '1988-11-20', 'dwarren4@theglobeandmail.com', 'Software Consultant', 1900),
+(5, 'Janice', 'Welch', '1980-11-20', 'jwelch5@dot.gov', 'Payment Adjustment Coordinator', 1200),
+(6, 'Gregory', 'Johnston', '1983-11-20', 'gjohnston6@geocities.com', 'VP Accounting', 2000),
+(7, 'Melissa', 'Kelley', '1985-11-20', 'mkelley7@jugem.jp', 'Sales Representative', 1700),
+(8, 'Tammy', 'Freeman', '1987-11-20', 'tfreeman8@ask.com', 'Human Resources Assistant II', 1600),
+(9, 'Donald', 'Warren', '1962-11-20', 'dwarren4@theglobeandmail.com', 'Environmental Specialist', 1300),
+(10, 'Steve', 'Franklin', '1984-11-20', 'sfranklin2@jiathis.com', 'Software Engineer III', 1400);
 
 --
 -- Index pour les tables exportées
